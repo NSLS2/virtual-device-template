@@ -36,7 +36,7 @@ dev = [
 ]
 
 [project.scripts]
-#virtual-{{ device_name }} = "virtual_{{ device_name }}.__main__:main"
+virtual-{{ device_name }} = "virtual_{{ device_name }}.__main__:main"
 
 [project.urls]
 GitHub = "https://github.com/NSLS2/virtual_{{ device_name }}"
@@ -125,8 +125,15 @@ platforms = ["linux-64"]
 [tool.pixi.tasks]
 simulator = "virtual-{{ device_name }}"
 
+[tool.pixi.dependencies]
+{% if control_api_type == "http" or readout_api_type == "http" %}
+fastapi = "*"
+{% elif control_api_type == "zmq" %}
+pyzmq = "*"
+{% endif %}
+
 [tool.pixi.pypi-dependencies]
-#virtual-{{ device_name }} = { path = ".", editable = true }
+virtual-{{ device_name }} = { path = ".", editable = true }
 
 [tool.pixi.environments]
 default = { solve-group = "default" }
@@ -146,4 +153,3 @@ tox = ">=4.32.0,<5"
 pytest-cov = ">=7.0.0,<8"
 python = ">=3.13,<3.14"
 podman = ">=5.8.1,<6"
-

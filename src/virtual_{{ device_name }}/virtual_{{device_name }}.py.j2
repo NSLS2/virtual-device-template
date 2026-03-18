@@ -1,4 +1,13 @@
 import logging
+{% if control_api_type == "http" or readout_api_type == "http" %}
+from fastapi import FastAPI
+{% endif %}
+{% if control_api_type == "socket" or readout_api_type == "socket" %}
+import socket
+{% endif %}
+{% if control_api_type == "zmq" or readout_api_type == "zmq" %}
+import zmq
+{% endif %}
 
 logger = logging.getLogger("virtual-{{ device_name }}")
 

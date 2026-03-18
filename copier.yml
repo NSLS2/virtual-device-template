@@ -11,3 +11,17 @@ author_name:
 author_email:
   type: str
   help: The email of the author of this repository.
+
+control_api:
+  type: str
+  choices:
+    - http
+    - socket
+    - zmq
+
+readout_api:
+  type: str
+  choices:
+    - http
+    - socket
+    - zmq
