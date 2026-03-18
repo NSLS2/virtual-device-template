@@ -1,0 +1,7 @@
+import pytest
+import subprocess
+from virtual_{{ device_name }} import __version__
+
+def test_cli_version():
+    result = subprocess.check_output(["virtual-{{ device_name }}", "--version"], text=True).strip()
+    assert result == __version__

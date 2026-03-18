@@ -1,0 +1,17 @@
+import logging
+
+logger = logging.getLogger("virtual-{{ device_name }}")
+
+
+class Virtual{{ device_name|capitalize }}:
+    """A virtual {{ device_name }} device simulator."""
+
+    def __init__(self, interface: str = "127.0.0.1", port: int = 8000):
+        self._interface = interface
+        self._port = port
+
+    def start(self) -> None:
+        logger.info("Virtual {{ device_name|capitalize }} running on %s:%d", self._interface, self._port)
+        # Add your simulator logic here
+        while True:
+            pass

@@ -1,0 +1,13 @@
+---
+
+device_name:
+  type: str
+  help: The name of the device this repository will simulate.
+
+author_name:
+  type: str
+  help: The name of the author of this repository.
+
+author_email:
+  type: str
+  help: The email of the author of this repository.
