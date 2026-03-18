@@ -18,14 +18,15 @@ device_name:
   default: "{{ package_name.split('-') | last }}"
   validator: "{% if not package_name.startswith('virtual-') %}Target directory name must be the device name prefixed with 'virtual-', ex: 'virtual-pilatus3'{% endif %}"
 
-
 author_name:
   type: str
   help: The name of the author of this repository.
+  validator: "{% if ' ' not in author_name.strip() %}Author name must contain at least a first and last name{% endif %}"
 
 author_email:
   type: str
   help: The email of the author of this repository.
+  default: "{{ author_name.split(' ') | first | first | lower }}{{ author_name.split(' ') | last | lower }}@bnl.gov"
 
 control_api:
   type: str
