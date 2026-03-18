@@ -3,6 +3,7 @@
 device_name:
   type: str
   help: The name of the device this repository will simulate.
+  default: "{{ _copier_conf.dst_path | split('-') | last }}"
 
 author_name:
   type: str
