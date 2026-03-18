@@ -1,5 +1,18 @@
 ---
 
+package_name:
+  type: str
+  help: The name of the python package for this repository.
+  default: "{{ _copier_conf.dst_path.name }}"
+  when: false
+  validator: "{% if not value.startswith('virtual-') %}Target directory name must be the device name prefixed with `virtual-`{% endif %}"
+
+package_dir:
+  type: str
+  help: The name of the python package directory for this repository.
+  default: "{{ _copier_conf.dst_path.name.replace('-', '_') }}"
+  when: false
+
 device_name:
   type: str
   help: The name of the device this repository will simulate.
