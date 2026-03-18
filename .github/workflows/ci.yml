@@ -1,0 +1,58 @@
+---
+
+name: CI
+permissions:
+  contents: read
+  packages: read
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Pixi
+        uses: prefix-dev/setup-pixi@8ca4608ef7f4daeb54f5205b20d0b7cb42f11143
+        with:
+          pixi-version: v0.55.0
+          cache: false
+          frozen: true
+
+      - name: Lint
+        run: pixi run -e dev lint
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["311", "312", "313", "314"]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Setup Pixi
+        uses: prefix-dev/setup-pixi@8ca4608ef7f4daeb54f5205b20d0b7cb42f11143
+        with:
+          pixi-version: v0.55.0
+          cache: false
+          frozen: true
+
+      - name: Test
+        run: pixi run -e ${{ matrix.python-version }} pytest
+

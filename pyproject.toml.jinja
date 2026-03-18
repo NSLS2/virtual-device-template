@@ -131,6 +131,7 @@ fastapi = "*"
 {% elif control_api_type == "zmq" %}
 pyzmq = "*"
 {% endif %}
+python = "*"
 
 [tool.pixi.pypi-dependencies]
 virtual-{{ device_name }} = { path = ".", editable = true }
@@ -138,12 +139,16 @@ virtual-{{ device_name }} = { path = ".", editable = true }
 [tool.pixi.environments]
 default = { solve-group = "default" }
 dev = { features = ["dev"], solve-group = "default" }
+py311 = { features = ["dev", "py311], solve-group = "default" }
+py312 = { features = ["dev", "py312], solve-group = "default" }
+py313 = { features = ["dev", "py313], solve-group = "default" }
+py314 = { features = ["dev", "py314], solve-group = "default" }
 
 [tool.pixi.feature.dev.tasks]
 test = "pytest"
 test-w-cov = "pytest --cov --cov-report=html"
 lint = "pre-commit run --all-files"
-build-container-image = "podman build -t virtual-{{ device_name }} .
+build-container-image = "podman build -t virtual-{{ device_name }} ."
 
 [tool.pixi.feature.dev.dependencies]
 pytest = ">=9.0.1,<10"
@@ -151,5 +156,17 @@ pre-commit = ">=4.4.0,<5"
 ruff = ">=0.14.6,<0.15"
 tox = ">=4.32.0,<5"
 pytest-cov = ">=7.0.0,<8"
-python = ">=3.13,<3.14"
 podman = ">=5.8.1,<6"
+podman-compose = ">=1.5.0,<2"
+
+[tool.pixi.feature.py311.dependencies]
+python = "3.11.*"
+
+[tool.pixi.feature.py312.dependencies]
+python = "3.12.*"
+
+[tool.pixi.feature.py313.dependencies]
+python = "3.13.*"
+
+[tool.pixi.feature.py314.dependencies]
+python = "3.14.*"
