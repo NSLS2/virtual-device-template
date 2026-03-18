@@ -16,7 +16,7 @@ device_name:
   type: str
   help: The name of the device this repository will simulate.
   default: "{{ package_name.split('-') | last }}"
-  validator: "{% if not package_name.startswith('virtual-') %}Target directory name must be the device name prefixed with `virtual-`{% endif %}"
+  validator: "{% if not package_name.startswith('virtual-') %}Target directory name must be the device name prefixed with 'virtual-', ex: 'virtual-pilatus3'{% endif %}"
 
 
 author_name:
